@@ -41,12 +41,12 @@ const login = async (req, res) => {
         console.log("✅ Token oluşturuldu");
 
         // 🔹 HTTP-Only Cookie olarak token'ı set et
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            maxAge: 3600000, // 1 saat
-        });
+res.cookie("token", token, {
+    httpOnly: true,
+    secure: false,  // Test ortamında false yap!
+    sameSite: "none", // Cross-Origin için "none" olmalı!
+    maxAge: 3600000,
+});
 
         return res.json({ message: "Giriş başarılı"});
     } catch (error) {
