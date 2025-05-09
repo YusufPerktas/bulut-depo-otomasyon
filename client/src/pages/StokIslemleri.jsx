@@ -17,8 +17,8 @@ const StokIslemleri = () => {
         const fetchIslemler = async () => {
           try {
             const [urunRes, demirbasRes] = await Promise.all([
-              axios.get('http://localhost:5000/api/stok-islemleri/urun'),
-              axios.get('http://localhost:5000/api/stok-islemleri/demirbas')
+              axios.get('http://13.49.224.225:5000/api/stok-islemleri/urun'),
+              axios.get('http://13.49.224.225:5000/api/stok-islemleri/demirbas')
             ]);
             setUrunIslemleri(urunRes.data);
             setDemirbasIslemleri(demirbasRes.data);

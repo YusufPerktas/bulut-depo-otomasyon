@@ -21,18 +21,18 @@ const EsyaZimmetleme = () => {
   const [activeTab, setActiveTab] = useState("zimmetleme");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/zimmetleme/kullanicilar")
+    axios.get("http://13.49.224.225:5000/api/zimmetleme/kullanicilar")
       .then((res) => setKullanicilar(res.data))
       .catch((err) => console.error("Kullanıcılar alınamadı:", err));
 
-    axios.get("http://localhost:5000/api/zimmetleme/demirbaslar")
+    axios.get("http://13.49.224.225:5000/api/zimmetleme/demirbaslar")
       .then((res) => setDemirbaslar(res.data))
       .catch((err) => console.error("Demirbaşlar alınamadı:", err));
   }, []);
 
   useEffect(() => {
     if (seciliDemirbas) {
-      axios.get(`http://localhost:5000/api/zimmetleme/bedenler?demirbasId=${seciliDemirbas}`)
+      axios.get(`http://13.49.224.225:5000/api/zimmetleme/bedenler?demirbasId=${seciliDemirbas}`)
         .then((res) => setBedenler(res.data))
         .catch((err) => console.error("Bedenler alınamadı:", err));
     } else {
@@ -54,7 +54,7 @@ const EsyaZimmetleme = () => {
       });
     }
   
-    axios.post("http://localhost:5000/api/zimmetleme", {
+    axios.post("http://13.49.224.225:5000/api/zimmetleme", {
       kullaniciId: seciliKullanici,
       demirbasId: seciliDemirbas,
       bedenId: seciliBeden,
@@ -107,7 +107,7 @@ const EsyaZimmetleme = () => {
       });
     }
   
-    axios.post("http://localhost:5000/api/zimmetleme/teslim", {
+    axios.post("http://13.49.224.225:5000/api/zimmetleme/teslim", {
       kullaniciId: seciliKullanici,
       demirbasId: seciliDemirbas,
       bedenId: seciliBeden,
@@ -148,7 +148,7 @@ const EsyaZimmetleme = () => {
 
   useEffect(() => {
     if (searchTerm.length > 1) {
-      axios.get(`http://localhost:5000/api/zimmetleme/arama?arama=${searchTerm}`)
+      axios.get(`http://13.49.224.225:5000/api/zimmetleme/arama?arama=${searchTerm}`)
         .then((res) => setKullanicilarListesi(res.data))
         .catch((err) => console.error("Arama hatası:", err));
     } else {

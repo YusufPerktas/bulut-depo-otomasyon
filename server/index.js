@@ -17,7 +17,7 @@ const zimmetlemeRouter = require("./routers/zimmetlemeRouter");
 const raporlarRouter = require("./routers/raporlarRouter");
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://depo-frontend.s3-website.eu-north-1.amazonaws.com'],
     credentials: true,}
 ));
 app.use(express.json());

@@ -12,7 +12,7 @@ const Raporlar = () => {
   const [performans, setPerformans] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/raporlar/en-cok-satanlar")
+    axios.get("http://13.49.224.225:5000/api/raporlar/en-cok-satanlar")
       .then((res) => setEnCokSatanlar(res.data))
       .catch((err) => {
         console.error("En çok satanlar alınamadı:", err);
@@ -27,7 +27,7 @@ const Raporlar = () => {
         });
       });
 
-    axios.get("http://localhost:5000/api/raporlar/stok-satis")
+    axios.get("http://13.49.224.225:5000/api/raporlar/stok-satis")
       .then((res) => setStokVeSatis(res.data))
       .catch((err) => {
         console.error("Stok-satış alınamadı:", err);
@@ -42,7 +42,7 @@ const Raporlar = () => {
         });
       });
 
-    axios.get("http://localhost:5000/api/raporlar/performans")
+    axios.get("http://13.49.224.225:5000/api/raporlar/performans")
       .then((res) => setPerformans(res.data))
       .catch((err) => {
         console.error("Performans alınamadı:", err);

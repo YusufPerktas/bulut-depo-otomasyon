@@ -44,10 +44,10 @@ const Anasayfa = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/kart/kar-zarar").then((res) => setKarZarar(res.data.karZarar));
-    axios.get("http://localhost:5000/api/kart/en-cok-satilan").then((res) => setCokSatilanlar(res.data.urunler));
-    axios.get("http://localhost:5000/api/kart/en-az-stok-urun").then((res) => setAzStokUrunler(res.data.urunler));
-    axios.get("http://localhost:5000/api/kart/en-az-stok-demirbas").then((res) => setAzStokDemirbaslar(res.data.demirbaslar));
+    axios.get("http://13.49.224.225:5000/api/kart/kar-zarar").then((res) => setKarZarar(res.data.karZarar));
+    axios.get("http://13.49.224.225:5000/api/kart/en-cok-satilan").then((res) => setCokSatilanlar(res.data.urunler));
+    axios.get("http://13.49.224.225:5000/api/kart/en-az-stok-urun").then((res) => setAzStokUrunler(res.data.urunler));
+    axios.get("http://13.49.224.225:5000/api/kart/en-az-stok-demirbas").then((res) => setAzStokDemirbaslar(res.data.demirbaslar));
   }, []);
 
   const renderList = (list, labelKey = "urunAdi") => (
