@@ -1,16 +1,15 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://13.49.224.225:5000/api"; // Backend API URL
-const STOK_API_URL = `${API_BASE_URL}/stoklar`;
-const ADMIN_API_URL = `${API_BASE_URL}/admin`;
-const URUN_DEMIRBAS_API_URL = `${API_BASE_URL}/urun-demirbas`;
-const URUN_DEMIRBAS__KAYIT_API_URL = `${API_BASE_URL}/urun-demirbas-kayit`;
-const KULLANICI_API_URL = `${API_BASE_URL}/kullanici`;
+// 📌 Global Axios Instance
+const api = axios.create({
+    baseURL: "http://13.49.224.225:5000/api",
+    withCredentials: true
+});
 
 // 🟢 Stok Arama
 export const searchStock = async (query) => {
     try {
-        const response = await axios.get(`${STOK_API_URL}/ara?q=${query}`);
+        const response = await api.get(`/stoklar/ara?q=${query}`);
         return response.data;
     } catch (error) {
         console.error("Stok verileri alınamadı:", error);
@@ -21,10 +20,10 @@ export const searchStock = async (query) => {
 // 🟢 Stok Güncelleme
 export const stokGuncelle = async (stokVerisi) => {
     try {
-        const response = await axios.post(`${STOK_API_URL}/guncelle`, stokVerisi);
+        const response = await api.post("/stoklar/guncelle", stokVerisi);
         return response.data;
     } catch (error) {
-        console.error("Stok güncelleme hatası:", error.response?.data || error.message);
+        console.error("Stok güncelleme hatası:", error);
         throw error;
     }
 };
@@ -32,10 +31,10 @@ export const stokGuncelle = async (stokVerisi) => {
 // 🟢 Kategoriye Göre Ürün Getirme
 export const getProductsByCategory = async (category) => {
     try {
-        const response = await axios.get(`${STOK_API_URL}/category/${category}`);
+        const response = await api.get(`/stoklar/category/${category}`);
         return response.data;
     } catch (error) {
-        console.error("Ürünleri getirme hatası:", error.response?.data || error.message);
+        console.error("Ürünleri getirme hatası:", error);
         return [];
     }
 };
@@ -43,43 +42,43 @@ export const getProductsByCategory = async (category) => {
 // 🟢 Ürüne Göre Beden/Özellik Getirme
 export const getSizesByProduct = async (category, productId) => {
     try {
-        const response = await axios.get(`${STOK_API_URL}/size/${category}/${productId}`);
+        const response = await api.get(`/stoklar/size/${category}/${productId}`);
         return response.data;
     } catch (error) {
-        console.error("Bedenleri getirme hatası:", error.response?.data || error.message);
+        console.error("Bedenleri getirme hatası:", error);
         return [];
     }
 };
 
-// 🔹 **🔐 LOGIN (Giriş Yapma)**
+// 🔐 LOGIN (Giriş Yapma)
 export const login = async (credentials) => {
     try {
-        const response = await axios.post(`${ADMIN_API_URL}/login`, credentials, { withCredentials: true });
+        const response = await api.post("/admin/login", credentials);
         return response.data;
     } catch (error) {
-        console.error("Giriş hatası:", error.response?.data || error.message);
+        console.error("Giriş hatası:", error);
         throw error;
     }
 };
 
-// 🔹 **✅ AUTH CHECK (Kullanıcı Giriş Yapmış mı?)**
+// ✅ AUTH CHECK
 export const checkAuth = async () => {
     try {
-        const response = await axios.get(`${ADMIN_API_URL}/auth`, { withCredentials: true });
+        const response = await api.get("/admin/auth");
         return response.data;
     } catch (error) {
-        console.error("Yetkilendirme hatası:", error.response?.data || error.message);
+        console.error("Yetkilendirme hatası:", error);
         throw error;
     }
 };
 
-// 🔹 **🚪 LOGOUT (Güvenli Çıkış Yapma)**
+// 🚪 LOGOUT
 export const logout = async () => {
     try {
-        const response = await axios.post(`${ADMIN_API_URL}/logout`, {}, { withCredentials: true });
+        const response = await api.post("/admin/logout");
         return response.data;
     } catch (error) {
-        console.error("Çıkış hatası:", error.response?.data || error.message);
+        console.error("Çıkış hatası:", error);
         throw error;
     }
 };
@@ -87,7 +86,7 @@ export const logout = async () => {
 // 🟢 Ürün ve Demirbaşları Getir
 export const getAllProductsAndAssets = async () => {
     try {
-        const response = await axios.get(`${URUN_DEMIRBAS_API_URL}/urunler-ve-demirbaslar`);
+        const response = await api.get("/urun-demirbas/urunler-ve-demirbaslar");
         return response.data;
     } catch (error) {
         console.error("Veri çekme hatası:", error);
@@ -98,19 +97,18 @@ export const getAllProductsAndAssets = async () => {
 // 🟢 Yeni Ürün/Demirbaş Ekleme 
 export const insertNewProductOrAsset = async (urunVerisi) => {
     try {
-        const response = await axios.post(`${URUN_DEMIRBAS__KAYIT_API_URL}/ekle`, urunVerisi);
+        const response = await api.post("/urun-demirbas-kayit/ekle", urunVerisi);
         return response.data;
     } catch (error) {
-        console.error("Ürün ekleme hatası:", error.response?.data || error.message);
+        console.error("Ürün ekleme hatası:", error);
         throw error;
     }
 };
 
-
 // 🟢 Kullanıcıları Getirme
 export const getKullanicilar = async () => {
     try {
-        const response = await axios.get(`${KULLANICI_API_URL}/kullanici-getir`);
+        const response = await api.get("/kullanici/kullanici-getir");
         return response.data;
     } catch (error) {
         console.error("Kullanıcıları çekerken hata oluştu:", error);
@@ -121,7 +119,7 @@ export const getKullanicilar = async () => {
 // 🟡 Kullanıcı Güncelleme
 export const updateKullanici = async (id, data) => {
     try {
-        await axios.post(`${KULLANICI_API_URL}/kullanici-guncelle/${id}`, data);
+        await api.post(`/kullanici/kullanici-guncelle/${id}`, data);
         return true;
     } catch (error) {
         console.error("Kullanıcı güncellenirken hata oluştu:", error);
@@ -132,7 +130,7 @@ export const updateKullanici = async (id, data) => {
 // 🔴 Yeni Kullanıcı Ekleme
 export const addKullanici = async (data) => {
     try {
-        await axios.post(`${KULLANICI_API_URL}/kullanici-ekle`, data);
+        await api.post("/kullanici/kullanici-ekle", data);
         return true;
     } catch (error) {
         console.error("Kullanıcı eklerken hata oluştu:", error);
@@ -142,7 +140,11 @@ export const addKullanici = async (data) => {
 
 // Kullanıcı silme
 export const deleteKullanici = async (id) => {
-    const response = await axios.delete(`/api/kullanicilar/${id}`);
-    return response.data;
-  };
-
+    try {
+        const response = await api.delete(`/kullanicilar/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Kullanıcı silme hatası:", error);
+        throw error;
+    }
+};
