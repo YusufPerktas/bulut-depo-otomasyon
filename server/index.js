@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const app = express();
@@ -16,9 +17,9 @@ const zimmetlemeRouter = require("./routers/zimmetlemeRouter");
 const raporlarRouter = require("./routers/raporlarRouter");
 
 app.use(cors({
-    origin: '*'
-}));
-
+    origin: ['http://localhost:3000', 'http://depo-frontend.s3-website.eu-north-1.amazonaws.com'],
+    credentials: true,}
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Form verilerini işlemek için
 
