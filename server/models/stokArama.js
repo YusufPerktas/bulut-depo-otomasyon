@@ -9,9 +9,9 @@ const araStok = (query, callback) => {
             U.Urun_Adi AS Ad, 
             B.BedenOzellik AS Ozellik, 
             S.Stok_Miktar 
-        FROM Urun_Stok S
-        JOIN Urun U ON S.Urun_id = U.Urun_id
-        JOIN Urun_BedenOzellik B ON S.BedenOzellik_id = B.BedenOzellik_id
+        FROM urun_stok S
+        JOIN urun U ON S.Urun_id = U.Urun_id
+        JOIN urun_bedenozellik B ON S.BedenOzellik_id = B.BedenOzellik_id
         WHERE (? = 'Urun' OR ? = 'urun' OR U.Urun_Adi LIKE CONCAT('%', ?, '%') OR B.BedenOzellik LIKE CONCAT('%', ?, '%'))
 
         UNION ALL
@@ -22,9 +22,9 @@ const araStok = (query, callback) => {
             D.Demirbas_Adi AS Ad, 
             DB.BedenOzellik AS Ozellik, 
             DS.Stok_Miktar 
-        FROM Demirbas_Stok DS
-        JOIN Demirbas D ON DS.Demirbas_id = D.Demirbas_id
-        JOIN Demirbas_BedenOzellik DB ON DS.BedenOzellik_id = DB.BedenOzellik_id
+        FROM demirbas_stok DS
+        JOIN demirbas D ON DS.Demirbas_id = D.Demirbas_id
+        JOIN demirbas_bedenozellik DB ON DS.BedenOzellik_id = DB.BedenOzellik_id
         WHERE (? = 'Demirbas' OR ? = 'demirbas' OR D.Demirbas_Adi LIKE CONCAT('%', ?, '%') OR DB.BedenOzellik LIKE CONCAT('%', ?, '%'))
 
         ORDER BY Tip, Ad;

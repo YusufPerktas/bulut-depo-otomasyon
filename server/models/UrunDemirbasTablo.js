@@ -13,9 +13,9 @@ const UrunDemirbasTablo = {
   // 🔹 Tüm Ürün ve Demirbaşları Getir (Kategori Belirterek)
   getAll: (callback) => {
     const sql = `
-      SELECT CONCAT('Urun-', Urun_id) AS id, Urun_Adi AS ad, 'Ürün' AS kategori, Tarih FROM Urun
+      SELECT CONCAT('Urun-', Urun_id) AS id, Urun_Adi AS ad, 'Ürün' AS kategori, Tarih FROM urun
       UNION ALL
-      SELECT CONCAT('Demirbas-', Demirbas_id) AS id, Demirbas_Adi AS ad, 'Demirbaş' AS kategori, Tarih FROM Demirbas
+      SELECT CONCAT('Demirbas-', Demirbas_id) AS id, Demirbas_Adi AS ad, 'Demirbaş' AS kategori, Tarih FROM demirbas
       ORDER BY Tarih DESC;
     `;
 
