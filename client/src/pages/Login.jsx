@@ -29,6 +29,7 @@ const Login = () => {
                 customClass: { popup: 'color-success' },
             });
 
+            localStorage.setItem("userInfo", "admin");
             navigate("/Anasayfa");
         } catch (err) {
             console.error("Login hatası:", err.response?.data || err.message);

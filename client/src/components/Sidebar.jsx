@@ -31,6 +31,7 @@ const Sidebar = () => {
         timer: 1500,
         showCloseButton: true,
       });
+      localStorage.removeItem("userInfo");
       navigate("/login");
     } catch (error) {
       console.error("Çıkış işlemi başarısız!");

@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Anasayfa from "./pages/Anasayfa"; //diğer sayfalarda eklenecek
+import AuthGuard from "./components/AuthGuard";
+import Anasayfa from "./pages/Anasayfa";
 import UrunDemirbas from "./pages/UrunDemirbas";
 import UrunDemirbasKayit from "./pages/UrunDemirbasKayit";
 import KullaniciIslemleri from "./pages/KullaniciIslemleri";
@@ -14,23 +14,66 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Anasayfaya direkt link verildiğinde login sayfasına yönlendir */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         <Route path="/login" element={<Login />} />
-        {/* Protected Route ile korunan sayfalar */}
+        
+        {/* Giriş yapılmadan erişilemeyecek sayfalar */}
         <Route
-          path="/*"
+          path="/Anasayfa"
           element={
-            <ProtectedRoute>
-              <Routes>
-                <Route path="/Anasayfa" element={<Anasayfa />} />
-                <Route path="/UrunDemirbas" element={<UrunDemirbas />} />
-                <Route path="/UrunDemirbasKayit" element={<UrunDemirbasKayit />} />
-                <Route path="/KullaniciIslemleri" element={<KullaniciIslemleri />} />
-                <Route path="/EsyaZimmetleme" element={<EsyaZimmetleme />} />
-                <Route path="/StokIslemleri" element={<StokIslemleri />} />
-                <Route path="/Raporlar" element={<Raporlar />} />
-                {/* Diğer sayfalar buraya eklenecek */}
-              </Routes>
-            </ProtectedRoute>
+            <AuthGuard>
+              <Anasayfa />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/UrunDemirbas"
+          element={
+            <AuthGuard>
+              <UrunDemirbas />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/UrunDemirbasKayit"
+          element={
+            <AuthGuard>
+              <UrunDemirbasKayit />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/KullaniciIslemleri"
+          element={
+            <AuthGuard>
+              <KullaniciIslemleri />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/EsyaZimmetleme"
+          element={
+            <AuthGuard>
+              <EsyaZimmetleme />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/StokIslemleri"
+          element={
+            <AuthGuard>
+              <StokIslemleri />
+            </AuthGuard>
+          }
+        />
+        <Route
+          path="/Raporlar"
+          element={
+            <AuthGuard>
+              <Raporlar />
+            </AuthGuard>
           }
         />
       </Routes>
