@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://13.49.224.225:5000/api"; // Backend API URL
+const API_BASE_URL = "http://13.61.236.139:5000/api"; // Backend API URL
 const STOK_API_URL = `${API_BASE_URL}/stoklar`;
 const ADMIN_API_URL = `${API_BASE_URL}/admin`;
 const URUN_DEMIRBAS_API_URL = `${API_BASE_URL}/urun-demirbas`;
